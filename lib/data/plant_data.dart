@@ -5,7 +5,6 @@ import 'package:growwell/Models/plant.dart';
 import 'package:growwell/Pages/homepage.dart';
 
 class PlantData extends ChangeNotifier {
-
   List<Plant> plantList = [
     Plant(
       name: "Snake Plant",
@@ -25,9 +24,8 @@ class PlantData extends ChangeNotifier {
     return plantList;
   }
 
-  Plant getRelevantPlant(name){
-    print(name);
-    Plant relevantPlant = plantList.firstWhere((plant) => plant.name == name); //Currently broken...unsure why
+  Plant getRelevantPlant(String inputName){
+    Plant relevantPlant = plantList.firstWhere((plant) => plant.name == inputName); //Breaks if I use the notifyListeners(); code.
     return relevantPlant;
   }
 
@@ -40,20 +38,20 @@ class PlantData extends ChangeNotifier {
       name: name,
       upcomingDate: date
     ));
-    notifyListeners();
     Navigator.push(context, MaterialPageRoute(builder: (context) => Homepage()));
 
   }
 
   void deletePlant(name, context){
+    print(name);
     Plant relevantPlant = getRelevantPlant(name);
+    print(relevantPlant.name);
     showDialog(context: context, builder: (context) => AlertDialog(
       title: Text("Are you sure you want to delete this plant?"),
       actions: [
         MaterialButton(
           onPressed: (){
             plantList.remove(relevantPlant);
-            notifyListeners();
             Navigator.push(context, MaterialPageRoute(builder: (context) => Homepage()));
           },
           child: Text("Delete"),
@@ -66,15 +64,11 @@ class PlantData extends ChangeNotifier {
         )
       ],
     ));
-    notifyListeners();
   }
 
   void editPlant(name, newName, context){
     Plant relevantPlant = getRelevantPlant(name);
     relevantPlant.name = newName;
-    notifyListeners();
     Navigator.push(context, MaterialPageRoute(builder: (context) => Homepage()));
   }
-
-  
 }

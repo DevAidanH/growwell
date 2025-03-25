@@ -44,3 +44,11 @@ String convertDateTimeToYYYYMMDD(datetime){
 
   return yyyymmdd;
 }
+
+String convertYYYYMMDDForDisplay(String yyyymmdd){
+  int yyyy = int.parse(yyyymmdd.substring(0, 4));
+  int mm = int.parse(yyyymmdd.substring(4,6));
+  int dd = int.parse(yyyymmdd.substring(6, 8));
+  String display = "$dd/$mm/$yyyy";
+  return display;
+}

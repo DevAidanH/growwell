@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:growwell/Models/datetime.dart';
 import 'package:growwell/data/plant_data.dart';
 import 'package:provider/provider.dart';
 
@@ -32,7 +33,7 @@ class Edititem extends StatelessWidget {
                   ]
               )
           ),
-          Text(value.getDate(plantName)),
+          Text("This plant it due water on ${convertYYYYMMDDForDisplay(value.getDate(plantName))}"),
           MaterialButton(
             onPressed: () => value.deletePlant(plantName, context),
             child: Text("Delete"),
