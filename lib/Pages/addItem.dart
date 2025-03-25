@@ -36,17 +36,17 @@ class _AdditemState extends State<Additem> {
   }
 
     Future<void> _selectDate() async {
-    final DateTime? pickedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2030), //Fix date range here
-    );
+      final DateTime? pickedDate = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now(),
+        lastDate: DateTime(2030), //Fix date range here
+      );
 
-    setState(() {
-      selectedDate = pickedDate;
-    });
-  }
+      setState(() {
+        selectedDate = pickedDate;
+      });
+    }
 
 
   @override
