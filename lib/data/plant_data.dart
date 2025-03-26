@@ -3,21 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:growwell/Models/datetime.dart';
 import 'package:growwell/Models/plant.dart';
 import 'package:growwell/Pages/homepage.dart';
+import 'package:growwell/data/hive_database.dart';
 
 class PlantData extends ChangeNotifier {
-  List<Plant> plantList = [
-    Plant(
-      name: "Snake Plant",
-      upcomingDate: todaysDateYYYYMMDD()
-    ),
-    Plant(
-      name: "House Plant",
-      upcomingDate: todaysDateYYYYMMDD()
-    )
-  ];
+
+  final db = HiveDatabase();
+
+  List<Plant> plantList = [];
 
   void initPlantList(){
-
+    if(db.previousDataExists()){
+      plantList = db.readFromDatabase();
+    }
+    else{
+      db.saveToDatabase(plantList);
+    }
   }
 
    List<Plant> getPlantList(){
@@ -38,6 +38,7 @@ class PlantData extends ChangeNotifier {
       name: name,
       upcomingDate: date
     ));
+    db.saveToDatabase(plantList);
     Navigator.push(context, MaterialPageRoute(builder: (context) => Homepage()));
 
   }
@@ -52,6 +53,7 @@ class PlantData extends ChangeNotifier {
         MaterialButton(
           onPressed: (){
             plantList.remove(relevantPlant);
+            db.saveToDatabase(plantList);
             Navigator.push(context, MaterialPageRoute(builder: (context) => Homepage()));
           },
           child: Text("Delete"),
@@ -69,12 +71,14 @@ class PlantData extends ChangeNotifier {
   void editPlant(name, newName, context){
     Plant relevantPlant = getRelevantPlant(name);
     relevantPlant.name = newName;
+    db.saveToDatabase(plantList);
     Navigator.push(context, MaterialPageRoute(builder: (context) => Homepage()));
   }
   
   void updateDate(name, date, context){
     Plant relevantPlant = getRelevantPlant(name);
     relevantPlant.upcomingDate = convertDateTimeToYYYYMMDD(date);
+    db.saveToDatabase(plantList);
     Navigator.push(context, MaterialPageRoute(builder: (context) => Homepage()));
   }
 }
