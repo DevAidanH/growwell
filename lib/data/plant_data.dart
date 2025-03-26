@@ -20,7 +20,7 @@ class PlantData extends ChangeNotifier {
     }
   }
 
-   List<Plant> getPlantList(){
+  List<Plant> getPlantList(){
     return plantList;
   }
 

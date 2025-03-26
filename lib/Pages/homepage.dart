@@ -39,7 +39,7 @@ class _HomepageState extends State<Homepage> {
               padding: EdgeInsets.all(30),
               physics: const NeverScrollableScrollPhysics(),
               itemCount: value.getPlantList().length,
-              itemBuilder: (context, index) => Planttile(plantName: value.getPlantList()[index].name)
+              itemBuilder: (context, index) => Planttile(plantName: value.getPlantList()[index].name, date: value.getPlantList()[index].upcomingDate,)
             ),
           ],
         ),

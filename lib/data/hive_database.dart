@@ -35,8 +35,6 @@ class HiveDatabase {
     for(int i=0; i < savedPlants.length; i++){
       String name = savedPlants[i].substring(0, savedPlants[i].length - 8);
       String date = savedPlants[i].substring(savedPlants[i].length - 8);
-      print(name);
-      print(date);
       myPlants.add(Plant(name: name, upcomingDate: date));
     }
 
