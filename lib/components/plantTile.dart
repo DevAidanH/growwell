@@ -13,6 +13,22 @@ class Planttile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    String dateOutput(){
+      String output = "";
+      int days = createDateTimeObject(date).difference(DateTime.now()).inDays;
+      if(days < 1){
+        output = "Overdue!";
+      }
+      else if(days == 1){
+        output = "Due tomorrow";
+      }
+      else{
+        output = "$days days remaining";
+      }
+      return output;
+    }
+
     return Consumer<PlantData>(
       builder: (context, value, child) => Card(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -24,7 +40,7 @@ class Planttile extends StatelessWidget {
           ),
           subtitle: Row(
             children: [
-              Text("${createDateTimeObject(date).difference(DateTime.now()).inDays} days remaining"),
+              Text(dateOutput()),
             ],
           ),
           trailing: Row(
